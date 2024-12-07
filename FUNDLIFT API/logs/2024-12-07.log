@@ -1,0 +1,20 @@
+2024-12-07 11:29:17,POST,,Created a new campaign record
+2024-12-07 11:31:19,POST,,Created a new campaign record
+2024-12-07 11:31:58,POST,1,Created a new campaign record
+2024-12-07 12:15:32,POST,2,SQLSTATE[42S02]: Base table or view not found: 1146 Table 'fundlift_db.campaigns' doesn't exist
+2024-12-07 12:18:19,POST,2,SQLSTATE[42S02]: Base table or view not found: 1146 Table 'fundlift_db.campaign_tbl' doesn't exist
+2024-12-07 12:18:45,POST,2,Added a new pledge and updated campaign amount raised.
+2024-12-07 13:55:39,POST,2,SQLSTATE[42S02]: Base table or view not found: 1146 Table 'fundlift_db.campaign_tbl' doesn't exist
+2024-12-07 13:56:07,POST,2,Added a new pledge and updated campaign amount raised.
+2024-12-07 15:11:14,PATCH,1,updated a campaign record
+2024-12-07 15:11:46,PATCH,1,updated a campaign record
+2024-12-07 15:15:23,PATCH,1,updated a campaign record
+2024-12-07 15:21:35,PATCH,1,updated a campaign record
+2024-12-07 15:22:48,PATCH,1,updated a campaign record
+2024-12-07 15:27:19,PATCH,,SQLSTATE[42S22]: Column not found: 1054 Unknown column 'is_deleted' in 'field list'
+2024-12-07 15:29:14,PATCH,,archived a campaign record
+2024-12-07 15:48:29,DELETE,,SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`fundlift_db`.`pledges_tbl`, CONSTRAINT `pledges_tbl_ibfk_1` FOREIGN KEY (`campaign_id`) REFERENCES `campaigns_tbl` (`id`))
+2024-12-07 15:53:51,DELETE,,SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`fundlift_db`.`pledges_tbl`, CONSTRAINT `pledges_tbl_ibfk_1` FOREIGN KEY (`campaign_id`) REFERENCES `campaigns_tbl` (`id`))
+2024-12-07 16:12:02,DELETE,,SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`fundlift_db`.`pledges_tbl`, CONSTRAINT `pledges_tbl_ibfk_1` FOREIGN KEY (`campaign_id`) REFERENCES `campaigns_tbl` (`id`))
+2024-12-07 16:13:58,DELETE,,SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`fundlift_db`.`pledges_tbl`, CONSTRAINT `pledges_tbl_ibfk_1` FOREIGN KEY (`campaign_id`) REFERENCES `campaigns_tbl` (`id`))
+2024-12-07 16:17:34,DELETE,,SQLSTATE[23000]: Integrity constraint violation: 1451 Cannot delete or update a parent row: a foreign key constraint fails (`fundlift_db`.`pledges_tbl`, CONSTRAINT `pledges_tbl_ibfk_1` FOREIGN KEY (`campaign_id`) REFERENCES `campaigns_tbl` (`id`))

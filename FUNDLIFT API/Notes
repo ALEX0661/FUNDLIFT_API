@@ -1,0 +1,18 @@
+needed softwares and system
+a. Postman
+b. Xampp (apache and mysql)
+c. phpmyadmin
+d. vscode
+e. github
+
+•The database should be name "tsk_mngnmnt"
+•The table in the data base is named "task"
+•The 8 columns are;
+task_id (int)
+title (varchar)
+description (txt)
+priority (enum)(low, medium, high)
+status (enum)(not started, in-progress, completed)
+due_date (date)
+created_at (date)
+updated_at (date)

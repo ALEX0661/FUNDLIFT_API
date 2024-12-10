@@ -81,10 +81,10 @@ class Authentication extends Common {
             try {
                 $this->executeQuery("UPDATE user_tbl SET token = ? WHERE username = ?",[$token, $username]);
                 
-                $this->logger($username, "POST", "Token saved successfully.");
+                $this->logger($username, null, "POST", "Token saved successfully.");
                 return $this->generateResponse(null, "success", "Token updated successfully.", 200);
             } catch (\PDOException $e) {
-                $this->logger($username, "POST", "Failed to save token: " . $e->getMessage());
+                $this->logger($username, null, "POST", "Failed to save token: " . $e->getMessage());
                 return $this->generateResponse(null, "failed", $e->getMessage(), 400);
             }
         }
@@ -101,19 +101,19 @@ class Authentication extends Common {
                     $tokenArr = explode('.', $token);
                     $this->saveToken($tokenArr[2], $user['username']);
     
-                    $this->logger($user['username'], "POST", "Login successful.");
+                    $this->logger($body['username'], $this->getUserId(), "POST", "Login successful.");
                     $payload = ["id" => $user['id'], "username" => $user['username'], "token" => $tokenArr[2]];
                     return $this->generateResponse($payload, "success", "Logged in successfully", 200);
                 } else {
-                    $this->logger($body['username'], "POST", "Incorrect Password.");
+                    $this->logger($body['username'], $this->getUserId(), "POST", "Incorrect Password.");
                     return $this->generateResponse(null, "failed", "Incorrect Password.", 401);
                 }
             } else {
-                $this->logger($body['username'], "POST", "Username does not exist.");
+                $this->logger($body['username'], $this->getUserId(), "POST", "Username does not exist.");
                 return $this->generateResponse(null, "failed", "Username does not exist.", 401);
             }
         } catch (\PDOException $e) {
-            $this->logger($body['username'], "POST", $e->getMessage());
+            $this->logger($body['username'], $this->getUserId(), "POST", $e->getMessage());
             return $this->generateResponse(null, "failed", $e->getMessage(), 400);
         }
     }
@@ -124,10 +124,10 @@ class Authentication extends Common {
         $response = $this->postData('user_tbl', $body, $this->pdo);
     
         if ($response['code'] === 200) {
-            $this->logger($this->getUsername(), "POST", "Account added successfully.");
+            $this->logger($body['username'], null, "POST", "Account added successfully.");
             return $this->generateResponse(null, "success", "Account created successfully.", 200);
         } else {
-            $this->logger($this->getUsername(), "POST", "Failed to add account: " . $response['errmsg']);
+            $this->logger($body['username'], null, "POST", "Failed to add account: " . $response['errmsg']);
             return $this->generateResponse(null, "failed", $response['errmsg'], 400);
         }
     }

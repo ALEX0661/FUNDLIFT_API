@@ -58,51 +58,58 @@ switch ($_SERVER['REQUEST_METHOD']) {
             }
         } else {
             http_response_code(401);
-            echo "Unauthorized.";
+            echo "Unauthorized access. You do not have permission to perform this action.";
         }
         break;
 
     case "POST":
-        $body = json_decode(file_get_contents("php://input"), true);
-        if ($auth->isAuthorized()) {
+        case "POST":
+            $body = json_decode(file_get_contents("php://input"), true);
+        
+            // Public endpoints that do not require authorization
             switch ($request[0]) {
-
-                case "decrypt":
-                    echo $crypt->decryptData($body);
-
                 case "login":
                     echo json_encode($auth->login($body));
                     break;
-
+        
                 case "register":
                     echo json_encode($auth->addAccount($body));
                     break;
-
-                case "postcampaign":
-                    echo json_encode($post->createCampaign($body));
-                    break;
-
-                case "postpledge":
-                    echo json_encode($post->createPledge($body));
-                    break;
-
-                case "updatecampaign":
-                echo json_encode($patch->patchCampaign($body, $request[1]));
-                break;
-
+        
                 default:
-                    http_response_code(401);
-                    echo "Invalid endpoint.";
+                    // Check if user is authorized for private endpoints
+                    if ($auth->isAuthorized()) {
+                        switch ($request[0]) {
+                            case "decrypt":
+                                echo $crypt->decryptData($body);
+                                break;
+        
+                            case "postcampaign":
+                                echo json_encode($post->createCampaign($body));
+                                break;
+        
+                            case "postpledge":
+                                echo json_encode($post->createPledge($body));
+                                break;
+        
+                            case "updatecampaign":
+                                echo json_encode($patch->patchCampaign($body, $request[1]));
+                                break;
+        
+                            default:
+                                http_response_code(401);
+                                echo "Invalid endpoint.";
+                                break;
+                        }
+                    } else {
+                        // If user is not authorized
+                        http_response_code(401);
+                        echo "Unauthorized access. You do not have permission to perform this action.";
+                    }
                     break;
-            
-                }
-            } else {
-                http_response_code(401);
-                echo "Unauthorized.";
             }
-
-        break;
-
+            break;
+        
     case "PATCH":
         $body = json_decode(file_get_contents("php://input"), true);
         if ($auth->isAuthorized()) {
@@ -127,7 +134,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             }
         } else {
             http_response_code(401);
-            echo "Unauthorized.";
+            echo "Unauthorized access. You do not have permission to perform this action.";
         }
 
         break;
@@ -151,7 +158,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             
         } else {
             http_response_code(401);
-            echo "Unauthorized.";
+            echo "Unauthorized access. You do not have permission to perform this action.";
         }
 
         break;

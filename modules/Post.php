@@ -11,8 +11,7 @@ class Post extends Common {
     }
 
     public function createCampaign($body) {
-        $userId = $this->getUserId();
-        $body['user_id'] = $userId;
+        $body['user_id'] = $this->getUserId();
 
 
         $result = $this->postData("campaigns_tbl", $body, $this->pdo);

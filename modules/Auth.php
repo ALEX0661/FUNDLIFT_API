@@ -1,6 +1,8 @@
 <?php
-class Authentication {
+include_once "Common.php";
 
+class Authentication extends Common {
+    
     protected $pdo;
 
     public function __construct(\PDO $pdo) {
@@ -16,12 +18,12 @@ class Authentication {
     private function getToken() {
         $headers = array_change_key_case(getallheaders(), CASE_LOWER);
 
-        $sqlString = "SELECT token FROM user_tbl WHERE username = ?";
         try {
-            $stmt = $this->pdo->prepare($sqlString);
-            $stmt->execute([$headers['x-auth-user']]);
-            $result = $stmt->fetchAll()[0];
-            return $result['token'];
+            $stmt = $this->executeQuery("SELECT token FROM user_tbl WHERE username = ?",[$headers['x-auth-user']]);
+            if ($stmt['code'] == 200 && isset($stmt['data'][0]['token'])) {
+                return $stmt['data'][0]['token'];
+            }
+            return null;
         } catch (Exception $e) {
             echo $e->getMessage();
         }
@@ -76,98 +78,59 @@ class Authentication {
     }
 
     public function saveToken($token, $username) {
-        $errmsg = "";
-        $code = 0;
-
-        try {
-            $sqlString = "UPDATE user_tbl SET token = ? WHERE username = ?";
-            $sql = $this->pdo->prepare($sqlString);
-            $sql->execute([$token, $username]);
-
-            $code = 200;
-            $data = null;
-
-            return ["data" => $data, "code" => $code];
-        } catch (\PDOException $e) {
-            $errmsg = $e->getMessage();
-            $code = 400;
+            try {
+                $this->executeQuery("UPDATE user_tbl SET token = ? WHERE username = ?",[$token, $username]);
+                
+                $this->logger($username, "POST", "Token saved successfully.");
+                return $this->generateResponse(null, "success", "Token updated successfully.", 200);
+            } catch (\PDOException $e) {
+                $this->logger($username, "POST", "Failed to save token: " . $e->getMessage());
+                return $this->generateResponse(null, "failed", $e->getMessage(), 400);
+            }
         }
-
-        return ["errmsg" => $errmsg, "code" => $code];
-    }
+        
 
     public function login($body) {
-        $username = $body->username;
-        $password = $body->password;
-
-        $code = 0;
-        $payload = "";
-        $remarks = "";
-        $message = "";
-
         try {
-            $sqlString = "SELECT id, username, password, token FROM user_tbl WHERE username = ?";
-            $stmt = $this->pdo->prepare($sqlString);
-            $stmt->execute([$username]);
-
-            if ($stmt->rowCount() > 0) {
-                $result = $stmt->fetchAll()[0];
-                if ($this->isSamePassword($password, $result['password'])) {
-                    $code = 200;
-                    $remarks = "success";
-                    $message = "Logged in successfully";
-
-                    $token = $this->generateToken($result['id'], $result['username']);
+            $result = $this->executeQuery("SELECT id, username, password, token FROM user_tbl WHERE username = ?", [$body['username']]);
+            $user = $result['data'][0];
+            if ($result['code'] == 200) {
+    
+                if ($this->isSamePassword($body['password'], $user['password'])) {
+                    $token = $this->generateToken($user['id'], $user['username']);
                     $tokenArr = explode('.', $token);
-                    $this->saveToken($tokenArr[2], $result['username']);
-                    $payload = ["id" => $result['id'], "username" => $result['username'], "token" => $tokenArr[2]];
+                    $this->saveToken($tokenArr[2], $user['username']);
+    
+                    $this->logger($user['username'], "POST", "Login successful.");
+                    $payload = ["id" => $user['id'], "username" => $user['username'], "token" => $tokenArr[2]];
+                    return $this->generateResponse($payload, "success", "Logged in successfully", 200);
                 } else {
-                    $code = 401;
-                    $payload = null;
-                    $remarks = "failed";
-                    $message = "Incorrect Password.";
+                    $this->logger($body['username'], "POST", "Incorrect Password.");
+                    return $this->generateResponse(null, "failed", "Incorrect Password.", 401);
                 }
             } else {
-                $code = 401;
-                $payload = null;
-                $remarks = "failed";
-                $message = "Username does not exist.";
+                $this->logger($body['username'], "POST", "Username does not exist.");
+                return $this->generateResponse(null, "failed", "Username does not exist.", 401);
             }
         } catch (\PDOException $e) {
-            $message = $e->getMessage();
-            $remarks = "failed";
-            $code = 400;
+            $this->logger($body['username'], "POST", $e->getMessage());
+            return $this->generateResponse(null, "failed", $e->getMessage(), 400);
         }
-        return ["payload" => $payload, "remarks" => $remarks, "message" => $message, "code" => $code];
     }
+    
 
     public function addAccount($body) {
-        $values = [];
-        $errmsg = "";
-        $code = 0;
-
-        $body->password = $this->encryptPassword($body->password);
-
-        foreach ($body as $value) {
-            array_push($values, $value);
+        $body['password'] = $this->encryptPassword($body['password']);
+        $response = $this->postData('user_tbl', $body, $this->pdo);
+    
+        if ($response['code'] === 200) {
+            $this->logger($this->getUsername(), "POST", "Account added successfully.");
+            return $this->generateResponse(null, "success", "Account created successfully.", 200);
+        } else {
+            $this->logger($this->getUsername(), "POST", "Failed to add account: " . $response['errmsg']);
+            return $this->generateResponse(null, "failed", $response['errmsg'], 400);
         }
-
-        try {
-            $sqlString = "INSERT INTO user_tbl(username, password) VALUES (?, ?)";
-            $sql = $this->pdo->prepare($sqlString);
-            $sql->execute($values);
-
-            $code = 200;
-            $data = null;
-
-            return ["data" => $data, "code" => $code];
-        } catch (\PDOException $e) {
-            $errmsg = $e->getMessage();
-            $code = 400;
-        }
-
-        return ["errmsg" => $errmsg, "code" => $code];
     }
-}
+}    
 
 ?>

@@ -28,8 +28,8 @@ class Delete extends Common {
 
     public function deletePledge($id) {
         try {
-            $stmt = $this->executeQuery("SELECT is_archived, amount, campaign_id FROM Pledges_tbl WHERE id = ?", [$id]);
-            $pledge = $stmt->fetch();
+            $result = $this->executeQuery("SELECT is_archived, amount, campaign_id FROM Pledges_tbl WHERE id = ?", [$id]);
+            $pledge = $result['data'][0];
 
             if (!$pledge) {
                 return $this->generateResponse(null, "failed", "Pledge not found.", 404);

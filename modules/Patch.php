@@ -62,9 +62,8 @@ class Patch extends Common {
         try {
             $this->pdo->beginTransaction();
             
-            $stmt = $this->executeQuery("SELECT is_archived, amount, campaign_id FROM Pledges_tbl WHERE id = ?", [$id]);
-            $pledge = $stmt->fetch();
-    
+            $result = $this->executeQuery("SELECT is_archived, amount, campaign_id FROM Pledges_tbl WHERE id = ?", [$id]);
+            $pledge = $result['data'][0];
             if (!$pledge) {
                 $this->pdo->rollBack();
                 return $this->generateResponse(null, "failed", "Pledge not found.", 404);

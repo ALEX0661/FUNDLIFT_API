@@ -36,8 +36,8 @@ class Post extends Common {
             $stmt->execute([$body['amount'], $body['campaign_id']]);
     
             $this->pdo->commit();
-            $this->logger($this->getUsername(), "POST", "Added a new pledge and updated the campaign's raised amount..");
-            return $this->generateResponse($result['data'], "success", "Successfully added a new pledge and updated the campaign.", 200);
+            $this->logger($this->getUsername(), "POST", "Added a new pledge and updated the campaign's raised amount.");
+            return $this->generateResponse($result['data'], "success", "Successfully added a new pledge and updated the campaign's raised amount.", 200);
         } catch (\PDOException $e) {
             $this->pdo->rollBack();
             $this->logger($this->getUsername(), "POST", $e->getMessage());

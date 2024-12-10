@@ -117,10 +117,33 @@ class Common {
         return false;
     }
 
-    public function executeQuery($sql, $params) {
-        $stmt = $this->pdo->prepare($sql);
-        $stmt->execute($params);
-        return $stmt;
+    public function executeQuery($sql, $params = []) {
+        $data = [];
+        $errmsg = "";
+        $code = 0;
+    
+        try {
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute($params);
+    
+            if ($stmt->rowCount() > 0) {
+                $data = $stmt->fetchAll();
+                $code = 200; 
+            } else {
+                $errmsg = "No data found";
+                $code = 404;
+            }
+        } catch (\PDOException $e) {
+            $errmsg = $e->getMessage();
+            $code = 400;
+        }
+    
+        return [
+            "code" => $code,
+            "data" => $data,
+            "errmsg" => $errmsg
+        ];
     }
+    
 }
 ?>

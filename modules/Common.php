@@ -6,11 +6,25 @@ class Common {
         return isset($headers['x-auth-user']) ? $headers['x-auth-user'] : "Unknown User";
     }
 
-    protected function logger($user, $method, $action) {
+    protected function getUserId() {
+        $headers = getallheaders();
+        $username = $headers['x-auth-user'] ?? null;
+        
+        if ($username) {
+            $stmt = $this->executeQuery("SELECT id FROM user_tbl WHERE username = ?", [$username]);
+            if ($stmt['code'] == 200 && !empty($stmt['data'])) {
+                return $stmt['data'][0]['id'];
+            }
+        }
+        
+        return null;
+    }        
+    
+    protected function logger($user, $userid, $method, $action) {
         
         $filename = date("Y-m-d") . ".log";
         $datetime = date("Y-m-d H:i:s");
-        $logMessage = "$datetime,$method,$user,$action" . PHP_EOL;
+        $logMessage = "$datetime,$method,$user,$userid,$action" . PHP_EOL;
         error_log($logMessage, 3, "./logs/$filename");
     }
 

@@ -11,23 +11,28 @@ class Post extends Common {
     }
 
     public function createCampaign($body) {
+        $userId = $this->getUserId();
+        $body['user_id'] = $userId;
+
+
         $result = $this->postData("campaigns_tbl", $body, $this->pdo);
         if ($result['code'] == 200) {
-            $this->logger($this->getUsername(), "POST", "Created a new campaign record");
+            $this->logger($this->getUsername(), $this->getUserId(), "POST", "Created a new campaign record");
             return $this->generateResponse($result['data'], "success", "Successfully created a new campaign.", $result['code']);
         }
-        $this->logger($this->getUsername(), "POST", $result['errmsg']);
+        $this->logger($this->getUsername(), $this->getUserId(), "POST", $result['errmsg']);
         return $this->generateResponse(null, "failed", $result['errmsg'], $result['code']);
     }
 
     public function createPledge($body) {
         try {
+            $body['user_id'] = $this->getUserId();
+
             $this->pdo->beginTransaction();
-    
             $result = $this->postData("Pledges_tbl", $body, $this->pdo);
             if ($result['code'] !== 200) {
                 $this->pdo->rollBack();
-                $this->logger($body['user_id'], "POST", $result['errmsg']);
+                $this->logger($this->getUsername(), $this->getUserId(), "POST", $result['errmsg']);
                 return $this->generateResponse(null, "failed", $result['errmsg'], $result['code']);
             }
     
@@ -36,11 +41,11 @@ class Post extends Common {
             $stmt->execute([$body['amount'], $body['campaign_id']]);
     
             $this->pdo->commit();
-            $this->logger($this->getUsername(), "POST", "Added a new pledge and updated the campaign's raised amount.");
+            $this->logger($this->getUsername(), $this->getUserId(), "POST", "Added a new pledge and updated the campaign's raised amount.");
             return $this->generateResponse($result['data'], "success", "Successfully added a new pledge and updated the campaign's raised amount.", 200);
         } catch (\PDOException $e) {
             $this->pdo->rollBack();
-            $this->logger($this->getUsername(), "POST", $e->getMessage());
+            $this->logger($this->getUsername(), $this->getUserId(), "POST", $e->getMessage());
             return $this->generateResponse(null, "failed", $e->getMessage(), 400);
         }
     }

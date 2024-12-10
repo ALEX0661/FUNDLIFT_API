@@ -46,7 +46,7 @@ class Get extends Common {
     }
 
     public function getPledges($campaign_id = null) {
-        $condition = "1=1";
+        $condition = "is_archived = 0";
         if ($campaign_id !== null) {
             $condition .= " AND campaign_id=" . $campaign_id;
         }

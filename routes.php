@@ -36,13 +36,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 case "campaigns":
                     $dataString = json_encode($get->getCampaigns($request[1] ?? null));
-                    echo $dataString;
-
+                    //echo $dataString;
+                    echo $crypt->encryptData($dataString);
                     break;
 
                 case "pledges":
                     $dataString = json_encode($get->getPledges($request[1] ?? null));
-                    echo $dataString;
+                    //echo $dataString;
+                    echo $crypt->encryptData($dataString);
                     break;
 
                 case "logs":
@@ -63,73 +64,96 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     case "POST":
         $body = json_decode(file_get_contents("php://input"), true);
-        switch ($request[0]) {
+        if ($auth->isAuthorized()) {
+            switch ($request[0]) {
 
-            case "login":
-                echo json_encode($auth->login($body));
+                case "decrypt":
+                    echo $crypt->decryptData($body);
+
+                case "login":
+                    echo json_encode($auth->login($body));
+                    break;
+
+                case "register":
+                    echo json_encode($auth->addAccount($body));
+                    break;
+
+                case "postcampaign":
+                    echo json_encode($post->createCampaign($body));
+                    break;
+
+                case "postpledge":
+                    echo json_encode($post->createPledge($body));
+                    break;
+
+                case "updatecampaign":
+                echo json_encode($patch->patchCampaign($body, $request[1]));
                 break;
 
-            case "register":
-                echo json_encode($auth->addAccount($body));
-                break;
-
-            case "postcampaign":
-                echo json_encode($post->createCampaign($body));
-                break;
-
-            case "postpledge":
-                echo json_encode($post->createPledge($body));
-                break;
-
-            case "updatecampaign":
-               echo json_encode($patch->patchCampaign($body, $request[1]));
-               break;
-
-            default:
+                default:
+                    http_response_code(401);
+                    echo "Invalid endpoint.";
+                    break;
+            
+                }
+            } else {
                 http_response_code(401);
-                echo "Invalid endpoint.";
-                break;
-        }
+                echo "Unauthorized.";
+            }
+
         break;
 
     case "PATCH":
         $body = json_decode(file_get_contents("php://input"), true);
-        switch ($request[0]) {
+        if ($auth->isAuthorized()) {
+            switch ($request[0]) {
 
-            case "updatecampaign":
-                echo json_encode($patch->patchCampaign($body, $request[1]));
-                break;
+                case "updatecampaign":
+                    echo json_encode($patch->patchCampaign($body, $request[1]));
+                    break;
 
-            case "archivecampaign":
-                echo json_encode($patch->archiveCampaign($request[1]));
-                break;
+                case "archivecampaign":
+                    echo json_encode($patch->archiveCampaign($request[1]));
+                    break;
 
-            case "archivepledge":
-                echo json_encode($patch->archivePledge($request[1]));
-                break;
+                case "archivepledge":
+                    echo json_encode($patch->archivePledge($request[1]));
+                    break;
 
-            default:
-                http_response_code(401);
-                echo "Invalid endpoint.";
-                break;
+                default:
+                    http_response_code(401);
+                    echo "Invalid endpoint.";
+                    break;
+            }
+        } else {
+            http_response_code(401);
+            echo "Unauthorized.";
         }
+
         break;
 
     case "DELETE":
-        switch ($request[0]) {
-            case "delcampaign":
-                echo json_encode($delete->deleteCampaign($request[1]));
-                break;
+        if ($auth->isAuthorized()) {
+            switch ($request[0]) {
+                case "delcampaign":
+                    echo json_encode($delete->deleteCampaign($request[1]));
+                    break;
 
-            case "delpledge":
-                echo json_encode($delete->deletePledge($request[1]));
-                break;
+                case "delpledge":
+                    echo json_encode($delete->deletePledge($request[1]));
+                    break;
 
-            default:
-                http_response_code(401);
-                echo "Invalid endpoint.";
-                break;
+                default:
+                    http_response_code(401);
+                    echo "Invalid endpoint.";
+                    break;
+            }
+            
+        } else {
+            http_response_code(401);
+            echo "Unauthorized.";
         }
+
         break;
 
     default:

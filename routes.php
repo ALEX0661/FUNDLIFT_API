@@ -123,8 +123,12 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     echo json_encode($patch->archiveCampaign($request[1]));
                     break;
 
-                case "archivepledge":
-                    echo json_encode($patch->archivePledge($request[1]));
+                case "refund":
+                    echo json_encode($patch->requestRefund($body));
+                    break;
+
+                case "validate":
+                    echo json_encode($patch->approveRefund($body));
                     break;
 
                 default:

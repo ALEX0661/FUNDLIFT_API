@@ -41,3 +41,36 @@
 2024-12-17 09:51:32, POST, zhanghao, 29, user, Added a new pledge worth '400.00' and updated the campaign's raised amount to ''.
 2024-12-17 10:01:09, POST, zhanghao, 29, user, Added a new pledge worth '20.00' and updated the campaign with id: '8' raised amount to ''.
 2024-12-17 10:06:27, POST, zhanghao, 29, user, Added a new pledge worth '30.00' to the campaign with id: '8' and raised its amount to ''.
+2024-12-17 17:37:57, POST, zhanghao, 29, user, SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'RETURNING amount_raised' at line 4
+2024-12-17 17:39:51, POST, zhanghao, 29, user, Added a new pledge worth '80.00' to the campaign with id: '8' and raised its amount to ''.
+2024-12-17 17:45:15, POST, zhanghao, 29, user, SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'RETURNING amount_raised' at line 4
+2024-12-17 17:52:09, POST, zhanghao, 29, user, Added a new pledge worth '80.00' to the campaign with id: '8' and raised its amount to '810.00'.
+2024-12-17 17:54:09, POST, zhanghao, 29, user, Added a new pledge worth '80.00' to the campaign with id: '8' and raised its amount to '890.00'.
+2024-12-17 17:54:30, POST, zhanghao, 29, user, Added a new pledge worth '80.00' to the campaign with id: '8' and raised its amount to '970.00'.
+2024-12-17 18:01:31, POST, zhanghao, 29, user, Added a new pledge worth '100.00' to the campaign with id: '8' and raised its amount to '1070.00'.
+2024-12-17 18:03:15, POST, zhanghao, 29, user, Added a new pledge worth '100.00' to the campaign with id: '8' and raised its amount to '1170.00'.
+2024-12-17 18:18:30, POST, zhanghao, 29, user, Pledge of '200.00' added to campaign ID '8'. Updated amount raised: '1370.00' out of the goal amount '10000.00'.
+2024-12-17 19:18:43, POST, zhanghao, 29, user, Created a new campaign record titled 'Save met'.
+2024-12-17 19:20:04, POST, zhanghao, 29, user, Unathorized access. Failed to pledge on their own campaign
+2024-12-17 19:20:23, POST, zhanghao, 29, user, SQLSTATE[23000]: Integrity constraint violation: 1452 Cannot add or update a child row: a foreign key constraint fails (`fundlift_db`.`pledges_tbl`, CONSTRAINT `pledges_tbl_ibfk_1` FOREIGN KEY (`campaign_id`) REFERENCES `campaigns_tbl` (`id`))
+2024-12-17 19:22:13, POST, zhanghao, 29, admin, Pledge of '200.00' added to campaign ID '13'. Updated amount raised: '1800.00' out of the goal amount '1000.00'.
+2024-12-17 19:29:14, POST, zhanghao, 29, user, Unathorized access. User failed to create a campaign
+2024-12-17 19:30:55, POST, zhanghao, 29, user, Unathorized access. User failed to create a campaign
+2024-12-17 19:32:52, POST, zhanghao, 29, campaign_owner, Created a new campaign record titled 'for glasses'.
+2024-12-17 21:50:38, POST, zhanghao, 29, campaign_owner, User attempted to request a refund for pledge ID '' but a pledge was already refunded.
+2024-12-17 21:51:50, POST, zhanghao, 29, campaign_owner, User attempted to request a refund for pledge ID '52' but a pledge was already refunded.
+2024-12-17 21:53:02, POST, zhanghao, 29, campaign_owner, Unathorized access. Failed to refund on other user's pledge record
+2024-12-17 21:53:19, POST, zhanghao, 29, campaign_owner, User attempted to request a refund for pledge ID '50' but a pledge was already refunded.
+2024-12-17 21:54:25, POST, zhanghao, 29, campaign_owner, User attempted to request a refund for pledge ID '50' but a pledge was already refunded.
+2024-12-17 21:54:29, POST, zhanghao, 29, campaign_owner, User attempted to request a refund for pledge ID '50' but a pledge was already refunded.
+2024-12-17 21:56:29, POST, zhanghao, 29, campaign_owner, User attempted to request a refund for pledge ID '50' but a pledge was already refunded.
+2024-12-17 21:56:32, POST, zhanghao, 29, campaign_owner, User attempted to request a refund for pledge ID '50' but a pledge was already refunded.
+2024-12-17 21:57:49, POST, zhanghao, 29, campaign_owner, User requested a refund for pledge ID '50' with reason: 'cant see anymore'
+2024-12-17 21:58:06, POST, zhanghao, 29, campaign_owner, User attempted to request a refund for pledge ID '50' but a refund has already been requested or processed.
+2024-12-17 21:58:18, POST, zhanghao, 29, campaign_owner, Unathorized access. Failed to refund on other user's pledge record
+2024-12-17 22:10:53, PATCHS, zhanghao, 29, campaign_owner, Failed to vaidate a refund request due to unauthorized access
+2024-12-17 22:13:23, PATCHS, zhanghao, 29, campaign_owner, Failed to validate a refund request due to unauthorized access
+2024-12-17 22:14:07, PATCH, zhanghao, 29, admin, User attempted to request a refund for invalid or already refunded pledge ID '14'.
+2024-12-17 22:16:58, PATCH, zhanghao, 29, admin, Admin use invalid action on '14'.
+2024-12-17 22:19:14, PATCH, zhanghao, 29, admin, Admin approved refund for pledge ID '50'. Amount refunded: '200.00'.
+2024-12-17 22:20:08, PATCH, zhanghao, 29, admin, Admin use invalid action on '50'.

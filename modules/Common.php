@@ -1,32 +1,54 @@
 <?php
 class Common {
 
-    protected function getUsername() {
-        $headers = getallheaders();
-        return isset($headers['x-auth-user']) ? $headers['x-auth-user'] : "Unknown User";
+    protected function getUserDetails()
+{
+    $headers = getallheaders();
+
+    if (!isset($headers['x-auth-user'])) {
+        return [
+            "username" => "Unknown User",
+            "user_id" => null,
+            "role" => null
+        ];
     }
 
-    protected function getUserId() {
-        $headers = getallheaders();
-        $username = $headers['x-auth-user'] ?? null;
-        
-        if ($username) {
-            $stmt = $this->executeQuery("SELECT id FROM user_tbl WHERE username = ?", [$username]);
-            if ($stmt['code'] == 200 && !empty($stmt['data'])) {
-                return $stmt['data'][0]['id'];
-            }
-        }
-        
-        return null;
-    }        
+    $username = $headers['x-auth-user'];
+
+    $stmt = $this->executeQuery(
+        "SELECT id, role FROM user_tbl WHERE username = ?",
+        [$username]
+    );
+
+    if ($stmt['code'] == 200 && !empty($stmt['data'])) {
+        $user = $stmt['data'][0];
+        return [
+            "username" => $username,
+            "user_id" => $user['id'],
+            "role" => $user['role']
+        ];
+    }
+
+    return [
+        "username" => "Unknown User",
+        "user_id" => null,
+        "role" => null
+    ];
+}
+
     
-    protected function logger($user, $userid, $method, $action) {
-        
+    protected function logger($user = null, $userid = null, $role = null, $method, $action) {
+        $user = $user ?? $this->getUserDetails()['username'];
+        $userid = $userid ?? $this->getUserDetails()['user_id'];
+        $role = $role ?? $this->getUserDetails()['role'];
+
         $filename = date("Y-m-d") . ".log";
         $datetime = date("Y-m-d H:i:s");
-        $logMessage = "$datetime,$method,$user,$userid,$action" . PHP_EOL;
+        $logMessage = "$datetime, $method, $user, $userid, $role, $action" . PHP_EOL;
+
         error_log($logMessage, 3, "./logs/$filename");
     }
+
 
 
     private function generateInsertString($tablename, $body) {
@@ -99,7 +121,7 @@ class Common {
         ];
     }
 
-    public function postData($tableName, $body, \PDO $pdo) {
+    protected function postData($tableName, $body, \PDO $pdo) {
         $values = array_values($body);
         $errmsg = "";
         $code = 0;
@@ -119,7 +141,7 @@ class Common {
         return ["errmsg" => $errmsg, "code" => $code];
     }
 
-    public function checkIfArchived($table, $id) {
+    protected function checkIfArchived($table, $id) {
         $sqlCheck = "SELECT is_archived FROM $table WHERE id = ?";
         $stmt = $this->pdo->prepare($sqlCheck);
         $stmt->execute([$id]);
@@ -131,7 +153,7 @@ class Common {
         return false;
     }
 
-    public function executeQuery($sql, $params = []) {
+    protected function executeQuery($sql, $params = []) {
         $data = [];
         $errmsg = "";
         $code = 0;
@@ -158,6 +180,33 @@ class Common {
             "errmsg" => $errmsg
         ];
     }
+
+    protected function isAdmin($username) {
+        return $this->getUserRole($username) === 'admin';
+    }
+
+    protected function getUserRole($username) {
+        $stmt = $this->executeQuery("SELECT role FROM user_tbl WHERE username = ?", [$username]);
+        if ($stmt['code'] == 200 && !empty($stmt['data'])) {
+            return $stmt['data'][0]['role'];
+        }
+        return null;
+    }
+
+    protected function hasPermission($action, $username) {
+        $role = $this->getUserRole($username);
+    
+        $permissions = [
+            'admin' => ['create', 'read', 'update', 'delete', 'archive'],
+            'campaign_owner' => ['create', 'read', 'update', 'delete'],
+            'user' => ['read', 'create_pledge']
+        ];
+    
+        return isset($permissions[$role]) && in_array($action, $permissions[$role]);
+    }
+    
+    
+    
     
 }
 ?>

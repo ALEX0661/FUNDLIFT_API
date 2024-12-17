@@ -1,0 +1,43 @@
+2024-12-17 05:49:02,POST,,,Account was successfully created.
+2024-12-17 05:49:30,POST,bae,,Token saved successfully.
+2024-12-17 05:49:30,POST,bae,,Login successful.
+2024-12-17 06:45:47,,POST,Account was successfully created., user, 
+2024-12-17 06:48:13,POST,,12, user, Account was successfully created.
+2024-12-17 06:49:25,POST,,12, user, Account was successfully created.
+2024-12-17 06:50:38,POST,,12, user, Account was successfully created.
+2024-12-17 06:51:00,POST,,12, user, Account was successfully created.
+2024-12-17 06:52:04,POST,,12, user, Account was successfully created.
+2024-12-17 06:52:22,POST,Unknown User,, , Account was successfully created.
+2024-12-17 06:53:45, POST, , 12, user, Account was successfully created.
+2024-12-17 06:54:04, POST, , 12, user, Account was successfully created.
+2024-12-17 06:54:22, POST, , 12, user, Account was successfully created.
+2024-12-17 07:09:32, POST, Unknown User, , , Unauthorized attempt to assign the role 'admin'. Only admins can assign roles.
+2024-12-17 07:09:44, POST, Unknown User, , , Failed attempt to assign an invalid role: 'adminh'
+2024-12-17 07:11:42, POST, Unknown User, , , Failed attempt to assign an invalid role: ''
+2024-12-17 07:11:54, POST, Unknown User, , , Account was successfully created.
+2024-12-17 07:12:12, Username does not exist., xel, , POST, 
+2024-12-17 07:17:21, POST, Unknown User, , , Username does not exist.
+2024-12-17 07:20:05, POST, Unknown User, , , Account was successfully created.
+2024-12-17 07:20:34, POST, Unknown User, , , Login successful.
+2024-12-17 07:22:25, POST, xel, 25, user, Unauthorized attempt to assign the role 'campaign_owner'. Only admins can assign roles.
+2024-12-17 07:22:54, POST, xel, 25, admin, Account was successfully created.
+2024-12-17 07:23:16, POST, xel, 25, admin, Account was successfully created.
+2024-12-17 07:27:09, POST, xel, 25, admin, Created an account with 'ricky' username 'campaign_owner' assigned role.
+2024-12-17 07:28:40, POST, xel, 25, admin, Created an account with 'zhanghao' username 'user' assigned role.
+2024-12-17 07:38:45, POST, xel, 25, admin, Failed attempt to assign an invalid role: 'adminn'
+2024-12-17 07:38:58, POST, xel, 25, admin, Created an account with 'jungwoo' username and 'admin' assigned role.
+2024-12-17 07:39:25, POST, xel, 25, admin, Attempted login with invalid username.
+2024-12-17 07:45:44, POST, xel, 25, admin, Attempted login with invalid username.
+2024-12-17 07:45:57, POST, xel, 25, admin, Attempted login with invalid passwoed.
+2024-12-17 07:46:07, POST, xel, 25, admin, 'jungwoo' Logged in successfully.
+2024-12-17 08:28:45, DELETE, xel, 25, admin, failed to destroy an non-archived pledge recored
+2024-12-17 08:30:02, DELETE, xel, 25, admin, Deleted pledge with ID 32.
+2024-12-17 08:31:42, POST, xel, 25, admin, 'zhanghao' Logged in successfully.
+2024-12-17 08:32:18, POST, zhanghao, 29, user, 'zhanghao' Logged in successfully.
+2024-12-17 08:37:40, DELETE, zhanghao, 29, user, Failed to destroy a pledge record due to Unauthorized access
+2024-12-17 09:34:36, POST, zhanghao, 29, user, Created a new campaign record
+2024-12-17 09:36:56, POST, zhanghao, 29, user, Created a new campaign record titled 'panggala ko'.
+2024-12-17 09:50:25, POST, zhanghao, 29, user, Added a new pledge worth '200.00' and updated the campaign's raised amount to ''.
+2024-12-17 09:51:32, POST, zhanghao, 29, user, Added a new pledge worth '400.00' and updated the campaign's raised amount to ''.
+2024-12-17 10:01:09, POST, zhanghao, 29, user, Added a new pledge worth '20.00' and updated the campaign with id: '8' raised amount to ''.
+2024-12-17 10:06:27, POST, zhanghao, 29, user, Added a new pledge worth '30.00' to the campaign with id: '8' and raised its amount to ''.

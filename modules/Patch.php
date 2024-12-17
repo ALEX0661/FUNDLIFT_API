@@ -26,11 +26,11 @@ class Patch extends Common {
     
             $stmt->execute($values);
 
-            $this->logger($this->getUsername(), $this->getUserId(), "PATCH", "Updated campaign record with ID: $id.");
+            $this->logger(null, null, null, "PATCH", "Updated campaign record with ID: $id.");
             return $this->generateResponse($this->getDataByTable('Campaigns_tbl', $id, $this->pdo), "success", "Successfully updated the campaign record with ID: $id.", 200);
         } 
         catch (\PDOException $e) {
-            $this->logger($this->getUsername(), $this->getUserId(), "PATCH", $e->getMessage());
+            $this->logger(null, null, null, "PATCH", $e->getMessage());
             return $this->generateResponse(null, "failed", $e->getMessage(), 400);
         }
     }
@@ -48,12 +48,12 @@ class Patch extends Common {
 
             $this->pdo->commit();
     
-            $this->logger($this->getUsername(), $this->getUserId(), "PATCH", "Archived campaign record with ID: $id and all associated pledges.");
+            $this->logger(null, null, null, "PATCH", "Archived campaign record with ID: $id and all associated pledges.");
             return $this->generateResponse(null, "success", "Successfully archived the campaign record with ID: $id and all associated pledges.", 200);
         } 
         catch (\PDOException $e) {
             $this->pdo->rollBack();
-            $this->logger($this->getUsername(), $this->getUserId(), "PATCH", $e->getMessage());
+            $this->logger(null, null, null, "PATCH", $e->getMessage());
             return $this->generateResponse(null, "failed", $e->getMessage(), 400);
         }
     }
@@ -78,12 +78,12 @@ class Patch extends Common {
             $this->executeQuery("UPDATE campaigns_tbl SET amount_raised = amount_raised - ? WHERE id = ?",[$pledge['amount'], $pledge['campaign_id']] );
          
             $this->pdo->commit();
-            $this->logger($this->getUsername(), $this->getUserId(), "PATCH", "Archived pledge with ID $id and updated the campaign's raised amount.");
+            $this->logger(null, null, null, "PATCH", "Archived pledge with ID $id and updated the campaign's raised amount.");
     
             return $this->generateResponse(null, "success", "Pledge with ID $id was successfully archived, and the campaign's total raised amount has been updated.", 200);
         } catch (\PDOException $e) {
             $this->pdo->rollBack();
-            $this->logger($this->getUsername(), $this->getUserId(), "PATCH", $e->getMessage());
+            $this->logger(null, null, null, "PATCH", $e->getMessage());
             return $this->generateResponse(null, "failed", $e->getMessage(), 400);
         }
     }

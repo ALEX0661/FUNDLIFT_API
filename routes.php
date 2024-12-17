@@ -58,7 +58,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             }
         } else {
             http_response_code(401);
-            echo "Unauthorized access. You do not have permission to perform this action.";
+            echo "Unauthorized access.";
         }
         break;
 
@@ -104,7 +104,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     } else {
                         // If user is not authorized
                         http_response_code(401);
-                        echo "Unauthorized access. You do not have permission to perform this action.";
+                        echo "Unauthorized access.";
                     }
                     break;
             }
@@ -134,7 +134,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             }
         } else {
             http_response_code(401);
-            echo "Unauthorized access. You do not have permission to perform this action.";
+            echo "Unauthorized access.";
         }
 
         break;
@@ -158,7 +158,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
             
         } else {
             http_response_code(401);
-            echo "Unauthorized access. You do not have permission to perform this action.";
+            echo "Unauthorized access.";
         }
 
         break;

@@ -81,10 +81,8 @@ class Authentication extends Common {
             try {
                 $this->executeQuery("UPDATE user_tbl SET token = ? WHERE username = ?",[$token, $username]);
                 
-                $this->logger($username, null, "POST", "Token saved successfully.");
                 return $this->generateResponse(null, "success", "Token updated successfully.", 200);
             } catch (\PDOException $e) {
-                $this->logger($username, null, "POST", "Failed to save token: " . $e->getMessage());
                 return $this->generateResponse(null, "failed", $e->getMessage(), 400);
             }
         }
@@ -93,7 +91,8 @@ class Authentication extends Common {
     public function login($body) {
         try {
             $result = $this->executeQuery("SELECT id, username, password, token FROM user_tbl WHERE username = ?", [$body['username']]);
-            $user = $result['data'][0];
+            $user = $result['data'][0]??null;
+
             if ($result['code'] == 200) {
     
                 if ($this->isSamePassword($body['password'], $user['password'])) {
@@ -101,36 +100,52 @@ class Authentication extends Common {
                     $tokenArr = explode('.', $token);
                     $this->saveToken($tokenArr[2], $user['username']);
     
-                    $this->logger($body['username'], $this->getUserId(), "POST", "Login successful.");
+                    $this->logger(null, null, null, "POST", "'{$body['username']}' Logged in successfully.");
                     $payload = ["id" => $user['id'], "username" => $user['username'], "token" => $tokenArr[2]];
                     return $this->generateResponse($payload, "success", "Logged in successfully", 200);
                 } else {
-                    $this->logger($body['username'], $this->getUserId(), "POST", "Incorrect Password.");
+                    $this->logger(null, null, null, "POST", "Attempted login with invalid passwoed.");
                     return $this->generateResponse(null, "failed", "Incorrect Password.", 401);
                 }
             } else {
-                $this->logger($body['username'], $this->getUserId(), "POST", "Username does not exist.");
+                $this->logger(null, null, null, "POST", "Attempted login with invalid username.");
                 return $this->generateResponse(null, "failed", "Username does not exist.", 401);
             }
         } catch (\PDOException $e) {
-            $this->logger($body['username'], $this->getUserId(), "POST", $e->getMessage());
+            $this->logger(null, null, null, "POST", $e->getMessage());
+            return $this->generateResponse(null, "failed", $e->getMessage(), 400);
+        }
+    }
+
+    public function addAccount($body) {
+        $body['role'] = isset($body['role']) ? $body['role'] : 'user';
+    
+        $validRoles = ['admin', 'campaign_owner', 'user'];
+        if (!in_array($body['role'], $validRoles)) {
+            $this->logger(null, null, null, "POST", "Failed attempt to assign an invalid role: '{$body['role']}'", 403);
+            return $this->generateResponse(null, "failed", "Invalid role specified.", 400);
+        }
+
+        if ($body['role'] !== 'user') {
+            if ($this->getUserDetails()['role'] !== 'admin') {
+                $this->logger(null, null, null, "POST", "Unauthorized attempt to assign the role '{$body['role']}'. Only admins can assign roles.", 403);
+                return $this->generateResponse(null, "failed", "Only admins can assign roles.", 403);
+            }
+        }
+    
+        $body['password'] = $this->encryptPassword($body['password']);
+    
+        try {
+            $result = $this->postData("user_tbl", $body, $this->pdo);
+    
+            $this->logger(null, null, null,"POST", "Created an account with '{$body['username']}' username and '{$body['role']}' assigned role.");
+            return $this->generateResponse(null, "success", "Account successfully created.", 200);
+        } catch (\PDOException $e) {
+            $this->logger(null, null, null, "POST", $e->getMessage());
             return $this->generateResponse(null, "failed", $e->getMessage(), 400);
         }
     }
     
-
-    public function addAccount($body) {
-        $body['password'] = $this->encryptPassword($body['password']);
-        $response = $this->postData('user_tbl', $body, $this->pdo);
-    
-        if ($response['code'] === 200) {
-            $this->logger($body['username'], null, "POST", "Account added successfully.");
-            return $this->generateResponse(null, "success", "Account created successfully.", 200);
-        } else {
-            $this->logger($body['username'], null, "POST", "Failed to add account: " . $response['errmsg']);
-            return $this->generateResponse(null, "failed", $response['errmsg'], 400);
-        }
-    }
 }    
 
 ?>

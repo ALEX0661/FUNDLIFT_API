@@ -1,0 +1,1126 @@
+{
+	"info": {
+		"_postman_id": "c9ce04c3-85f1-4cde-9ce8-2aa6a344497b",
+		"name": "FUNDLIFT API",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" alt=\"\" height=\"1530\" width=\"2162\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "39614228"
+	},
+	"item": [
+		{
+			"name": "campaign_owner(restrictiontest)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "xel",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "ZWM4M2FhOGIzOGMzMjUzM2YxMDg4M2UxYzRkMTFkYmY2MmM3ZGJmMGVhYjNjZTcyN2I2NDhmZmY1MzAwZDNkZA==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"title\": \"Save met\",\r\n\"description\": \"need money\",\r\n\"goal_amount\": \"1000.00\",\r\n\"amount_raised\": \"1600.00\",\r\n\"start_date\": \"2024-11-01\",\r\n\"end_date\": \"2025-01-01\",\r\n\"updated_at\": \"2024-12-07 10:29:42\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/delcampaign/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"delcampaign",
+						"4"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "user(restrictiontest)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "jungwoo",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "ZWVjZGEyMDg3YWI4OTE4NTA2M2M5N2RlMTAwNDg3MDE4ODkzOGNmZjJmZjRlNWI1NDE2MTk2NzEwOGU0ZjRmZQ==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"title\": \"Save met\",\r\n\"description\": \"need money\",\r\n\"goal_amount\": \"1000.00\",\r\n\"amount_raised\": \"1600.00\",\r\n\"start_date\": \"2024-11-01\",\r\n\"end_date\": \"2025-01-01\",\r\n\"updated_at\": \"2024-12-07 10:29:42\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/delcampaign/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"delcampaign",
+						"4"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "registert(admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "zhanghao",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "MWExZWIwYTA1ZGExOWZhZjU3ZGY4YzY4MzUwOTdiOGRjMWFjZDg3NjAwNzgzMzhkNGIyNjU3ODgwOTlkYWZkZg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\": \"\",\r\n\"password\": \"\",\r\n\"role\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"register"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "postcampaign(admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "zhanghao",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "MWExZWIwYTA1ZGExOWZhZjU3ZGY4YzY4MzUwOTdiOGRjMWFjZDg3NjAwNzgzMzhkNGIyNjU3ODgwOTlkYWZkZg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"title\": \"Save met\",\r\n\"description\": \"need money\",\r\n\"goal_amount\": \"1000.00\",\r\n\"amount_raised\": \"1600.00\",\r\n\"start_date\": \"2024-11-01\",\r\n\"end_date\": \"2025-01-01\",\r\n\"updated_at\": \"2024-12-07 10:29:42\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/postcampaign",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"postcampaign"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "postcampaign(campagin_owner)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "xel",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "ZWM4M2FhOGIzOGMzMjUzM2YxMDg4M2UxYzRkMTFkYmY2MmM3ZGJmMGVhYjNjZTcyN2I2NDhmZmY1MzAwZDNkZA==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"title\": \"Save met\",\r\n\"description\": \"need money\",\r\n\"goal_amount\": \"1000.00\",\r\n\"amount_raised\": \"1600.00\",\r\n\"start_date\": \"2024-11-01\",\r\n\"end_date\": \"2025-01-01\",\r\n\"updated_at\": \"2024-12-07 10:29:42\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/postcampaign",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"postcampaign"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "postpledge(admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "zhanghao",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "MWExZWIwYTA1ZGExOWZhZjU3ZGY4YzY4MzUwOTdiOGRjMWFjZDg3NjAwNzgzMzhkNGIyNjU3ODgwOTlkYWZkZg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"campaign_id\": 7,\r\n\"amount\": \"200.00\",\r\n\"message\": \"education!\",\r\n\"created_at\": \"2024-12-07 10:30:08\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/postpledge",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"postpledge"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "postpledge(campagin_owner)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "xel",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "ZWM4M2FhOGIzOGMzMjUzM2YxMDg4M2UxYzRkMTFkYmY2MmM3ZGJmMGVhYjNjZTcyN2I2NDhmZmY1MzAwZDNkZA==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"campaign_id\": 7,\r\n\"amount\": \"200.00\",\r\n\"message\": \"education!\",\r\n\"created_at\": \"2024-12-07 10:30:08\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/postpledge",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"postpledge"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "postpledge(user)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "jungwoo",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "ZWVjZGEyMDg3YWI4OTE4NTA2M2M5N2RlMTAwNDg3MDE4ODkzOGNmZjJmZjRlNWI1NDE2MTk2NzEwOGU0ZjRmZQ==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"campaign_id\": 7,\r\n\"amount\": \"200.00\",\r\n\"message\": \"education!\",\r\n\"created_at\": \"2024-12-07 10:30:08\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/postcampaign",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"postcampaign"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "valpayment(admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "zhanghao",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "MWExZWIwYTA1ZGExOWZhZjU3ZGY4YzY4MzUwOTdiOGRjMWFjZDg3NjAwNzgzMzhkNGIyNjU3ODgwOTlkYWZkZg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"pledge_id\": \"\",\r\n\"action\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/valpayment",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"valpayment"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "updatecampaign(admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "zhanghao",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "MWExZWIwYTA1ZGExOWZhZjU3ZGY4YzY4MzUwOTdiOGRjMWFjZDg3NjAwNzgzMzhkNGIyNjU3ODgwOTlkYWZkZg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"title\": \"Save met\",\r\n\"description\": \"need money\",\r\n\"goal_amount\": \"1000.00\",\r\n\"amount_raised\": \"1600.00\",\r\n\"start_date\": \"2024-11-01\",\r\n\"end_date\": \"2025-01-01\",\r\n\"updated_at\": \"2024-12-07 10:29:42\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/updatecampaign",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"updatecampaign"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "updatecampaign(campagin_owner)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "xel",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "ZWM4M2FhOGIzOGMzMjUzM2YxMDg4M2UxYzRkMTFkYmY2MmM3ZGJmMGVhYjNjZTcyN2I2NDhmZmY1MzAwZDNkZA==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"title\": \"Save met\",\r\n\"description\": \"need money\",\r\n\"goal_amount\": \"1000.00\",\r\n\"amount_raised\": \"1600.00\",\r\n\"start_date\": \"2024-11-01\",\r\n\"end_date\": \"2025-01-01\",\r\n\"updated_at\": \"2024-12-07 10:29:42\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/updatecampaign",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"updatecampaign"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "reqremovecamp(admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "zhanghao",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "MWExZWIwYTA1ZGExOWZhZjU3ZGY4YzY4MzUwOTdiOGRjMWFjZDg3NjAwNzgzMzhkNGIyNjU3ODgwOTlkYWZkZg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"title\": \"Save met\",\r\n\"description\": \"need money\",\r\n\"goal_amount\": \"1000.00\",\r\n\"amount_raised\": \"1600.00\",\r\n\"start_date\": \"2024-11-01\",\r\n\"end_date\": \"2025-01-01\",\r\n\"updated_at\": \"2024-12-07 10:29:42\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/removecampaign/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"removecampaign",
+						""
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "reqremovecamp(campaign_owner)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "xel",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "ZWM4M2FhOGIzOGMzMjUzM2YxMDg4M2UxYzRkMTFkYmY2MmM3ZGJmMGVhYjNjZTcyN2I2NDhmZmY1MzAwZDNkZA==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"title\": \"Save met\",\r\n\"description\": \"need money\",\r\n\"goal_amount\": \"1000.00\",\r\n\"amount_raised\": \"1600.00\",\r\n\"start_date\": \"2024-11-01\",\r\n\"end_date\": \"2025-01-01\",\r\n\"updated_at\": \"2024-12-07 10:29:42\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/removecampaign/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"removecampaign",
+						""
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "val reqremovecamp(admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "zhanghao",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "MWExZWIwYTA1ZGExOWZhZjU3ZGY4YzY4MzUwOTdiOGRjMWFjZDg3NjAwNzgzMzhkNGIyNjU3ODgwOTlkYWZkZg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"title\": \"Save met\",\r\n\"description\": \"need money\",\r\n\"goal_amount\": \"1000.00\",\r\n\"amount_raised\": \"1600.00\",\r\n\"start_date\": \"2024-11-01\",\r\n\"end_date\": \"2025-01-01\",\r\n\"updated_at\": \"2024-12-07 10:29:42\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/approveremovecampaign/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"approveremovecampaign",
+						""
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "refund(admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "zhanghao",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "MWExZWIwYTA1ZGExOWZhZjU3ZGY4YzY4MzUwOTdiOGRjMWFjZDg3NjAwNzgzMzhkNGIyNjU3ODgwOTlkYWZkZg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"pledge_id\": \"\",\r\n\"refund_reason\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/refund",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"refund"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "refund(campagin_owner)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "xel",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "ZWM4M2FhOGIzOGMzMjUzM2YxMDg4M2UxYzRkMTFkYmY2MmM3ZGJmMGVhYjNjZTcyN2I2NDhmZmY1MzAwZDNkZA==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"pledge_id\": \"\",\r\n\"refund_reason\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/refund",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"refund"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "refund(user)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "jungwoo",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "ZWVjZGEyMDg3YWI4OTE4NTA2M2M5N2RlMTAwNDg3MDE4ODkzOGNmZjJmZjRlNWI1NDE2MTk2NzEwOGU0ZjRmZQ==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"pledge_id\": \"\",\r\n\"refund_reason\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/refund",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"refund"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "valrefund(admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "zhanghao",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "MWExZWIwYTA1ZGExOWZhZjU3ZGY4YzY4MzUwOTdiOGRjMWFjZDg3NjAwNzgzMzhkNGIyNjU3ODgwOTlkYWZkZg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"pledge_id\": \"\",\r\n\"action\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/valrefund",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"valrefund"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "delcampaign(admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "zhanghao",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "MWExZWIwYTA1ZGExOWZhZjU3ZGY4YzY4MzUwOTdiOGRjMWFjZDg3NjAwNzgzMzhkNGIyNjU3ODgwOTlkYWZkZg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\": \"\",\r\n\"password\": \"\",\r\n\"role\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/delcampaign",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"delcampaign"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		},
+		{
+			"name": "delpledge(admin)",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "x-auth-user",
+						"value": "zhanghao",
+						"type": "text"
+					},
+					{
+						"key": "authorization",
+						"value": "MWExZWIwYTA1ZGExOWZhZjU3ZGY4YzY4MzUwOTdiOGRjMWFjZDg3NjAwNzgzMzhkNGIyNjU3ODgwOTlkYWZkZg==",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"username\": \"\",\r\n\"password\": \"\",\r\n\"role\": \"\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost/FUNDLIFT_API-main/delpledge",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"path": [
+						"FUNDLIFT_API-main",
+						"delpledge"
+					]
+				},
+				"description": "This is a GET request and it is used to \"get\" data from an endpoint. There is no request body for a GET request, but you can use query parameters to help specify the resource you want data on (e.g., in this request, we have `id=1`).\n\nA successful GET response will have a `200 OK` status, and should include some kind of response body - for example, HTML web content or JSON data."
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}

@@ -12,8 +12,12 @@ class Delete extends Common {
         try {
             if ($this->getUserDetails()['role'] !== 'admin') {
 
-                $this->logger(null, null, null, "DELETE", "Failed to destroy a campaign record due to unauthorized access");
                 return $this->generateResponse(null, "failed", "Unauthorized access. Only admins can delete campaigns.", 403);
+            }
+
+            $pledge = $this->executeQuery("SELECT id FROM campaigns_tbl WHERE id = ?", [$id]);
+            if (empty($pledge['data'])) {
+                return $this->generateResponse(null, "failed", "Campaign not found.", 404);
             }
 
             $this->pdo->beginTransaction();
@@ -34,31 +38,27 @@ class Delete extends Common {
 
     public function deletePledge($id) {
         try {
-        if ($this->getUserDetails()['role'] !== 'admin') {
-
-            $this->logger(null, null, null, "DELETE", "Failed to destroy a pledge record due to unauthorized access");
-            return $this->generateResponse(null, "failed", "Unauthorized access. Only admins can delete pledges.", 403);
-        }
-            $result = $this->executeQuery("SELECT is_archived, amount, campaign_id FROM Pledges_tbl WHERE id = ?", [$id]);
-            $pledge = $result['data'][0]??null;
-
-            if (!$pledge) {
+            if ($this->getUserDetails()['role'] !== 'admin') {
+                return $this->generateResponse(null, "failed", "Unauthorized access. Only admins can delete pledges.", 403);
+            }
+    
+            $pledge = $this->executeQuery("SELECT id FROM pledges_tbl WHERE id = ?", [$id]);
+            if (empty($pledge['data'])) {
                 return $this->generateResponse(null, "failed", "Pledge not found.", 404);
             }
-            if ($pledge['is_archived'] == 0) {
-                $this->logger(null, null, null, "DELETE", "failed to destroy an non-archived pledge recored");
-                return $this->generateResponse(null, "failed", "Pledge with ID: $id is not archived thus cannot be deleted.", 400);
-            }
-
+    
             $this->executeQuery("DELETE FROM pledges_tbl WHERE id = ?", [$id]);
-
+    
             $this->logger(null, null, null, "DELETE", "Deleted pledge with ID $id.");
+    
             return $this->generateResponse(null, "success", "Pledge with ID $id was successfully deleted.", 200);
         } catch (\PDOException $e) {
+
             $this->logger(null, null, null, "DELETE", $e->getMessage());
             return $this->generateResponse(null, "failed", $e->getMessage(), 400);
         }
     }
+    
 
 }
 ?>

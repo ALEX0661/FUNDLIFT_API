@@ -1,0 +1,23 @@
+2024-12-19 00:02:52, DELETE, zhanghao, 29, admin, Deleted the campaign record with ID: 8 and all related pledges
+2024-12-19 00:08:55, DELETE, zhanghao, 29, admin, Deleted pledge with ID 52.
+2024-12-19 00:09:24, DELETE, zhanghao, 29, admin, Deleted the campaign record with ID: 8 and all related pledges
+2024-12-19 00:09:30, DELETE, zhanghao, 29, admin, Deleted the campaign record with ID: 8 and all related pledges
+2024-12-19 00:09:49, DELETE, zhanghao, 29, admin, Deleted the campaign record with ID: 1 and all related pledges
+2024-12-19 00:12:27, DELETE, zhanghao, 29, admin, Deleted the campaign record with ID: 9 and all related pledges
+2024-12-19 00:32:20, POST, zhanghao, 29, admin, Created a new pledge worth '10.00' for the campaign with ID: '12'. Payment status is set to 'pending'.
+2024-12-19 00:34:52, POST, xel, 25, campaign_owner, Created a new pledge worth '200.00' for the campaign with ID: '16'. Payment status is set to 'pending'.
+2024-12-19 00:35:22, POST, jungwoo, 30, user, Unathorized access. User failed to create a campaign
+2024-12-19 00:35:49, POST, jungwoo, 30, user, Created a new pledge worth '200.00' for the campaign with ID: '15'. Payment status is set to 'pending'.
+2024-12-19 00:37:40, PATCH, zhanghao, 29, admin, Admin denied payment request for pledge ID '56'.
+2024-12-19 00:37:49, PATCH, zhanghao, 29, admin, Admin denied payment request for pledge ID '56'.
+2024-12-19 00:38:38, PATCH, zhanghao, 29, admin, Admin denied payment request for pledge ID '56'.
+2024-12-19 00:39:08, PATCH, zhanghao, 29, admin, Admin approved payment for pledge ID '55'. Amount: '200.00'.
+2024-12-19 00:44:41, POST, zhanghao, 29, admin, Pledge of '' added to campaign ID ''. Updated amount raised: '' out of the goal amount ''.
+2024-12-19 00:48:50, POST, zhanghao, 29, admin, Pledge of '' added to campaign ID ''. Updated amount raised: '' out of the goal amount ''.
+2024-12-19 00:50:20, POST, zhanghao, 29, admin, Pledge of '' added to campaign ID ''. Updated amount raised: '1610.00' out of the goal amount '1000.00'.
+2024-12-19 00:55:30, POST, zhanghao, 29, admin, Pledge of '200.00' added to campaign ID '7'. Updated amount raised: '800.00' out of the goal amount '30000.00'.
+2024-12-19 00:59:10, PATCH, zhanghao, 29, admin, Admin denied payment request for pledge ID '14'.
+2024-12-19 01:05:59, POST, zhanghao, 29, admin, Created a new pledge worth '10.00' for the campaign with ID: '12'. Payment status is set to 'pending'.
+2024-12-19 01:06:36, PATCH, zhanghao, 29, admin, Admin denied payment request for pledge ID '57'.
+2024-12-19 01:11:17, POST, zhanghao, 29, admin, User requested a refund for pledge ID '53' with reason: 'give me my money'
+2024-12-19 01:12:58, PATCH, zhanghao, 29, admin, Admin approved refund for pledge ID '53'. Amount refunded: '10.00'.

@@ -1,0 +1,5 @@
+2024-12-18 22:51:51, POST, jungwoo, 30, user, Unathorized access. User failed to create a campaign
+2024-12-18 23:52:53, POST, xel, 25, campaign_owner, Created a new campaign record titled 'test1'.
+2024-12-18 23:56:00, POST, xel, 25, campaign_owner, Created a new campaign record titled 'test1'.
+2024-12-18 23:57:24, POST, zhanghao, 29, admin, Created a new campaign record titled 'test2'.
+2024-12-18 23:59:03, POST, zhanghao, 29, admin, Created a new pledge worth '10.00' for the campaign with ID: '17'. Payment status is set to 'pending'.

@@ -36,14 +36,14 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
                 case "campaigns":
                     $dataString = json_encode($get->getCampaigns($request[1] ?? null));
-                    //echo $dataString;
-                    echo $crypt->encryptData($dataString);
+                    echo $dataString;
+                    //echo $crypt->encryptData($dataString);
                     break;
 
                 case "pledges":
                     $dataString = json_encode($get->getPledges($request[1] ?? null));
-                    //echo $dataString;
-                    echo $crypt->encryptData($dataString);
+                    echo $dataString;
+                    //echo $crypt->encryptData($dataString);
                     break;
 
                 case "logs":
@@ -66,7 +66,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         case "POST":
             $body = json_decode(file_get_contents("php://input"), true);
         
-            // Public endpoints that do not require authorization
             switch ($request[0]) {
                 case "login":
                     echo json_encode($auth->login($body));
@@ -77,7 +76,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     break;
         
                 default:
-                    // Check if user is authorized for private endpoints
+
                     if ($auth->isAuthorized()) {
                         switch ($request[0]) {
                             case "decrypt":
@@ -90,10 +89,6 @@ switch ($_SERVER['REQUEST_METHOD']) {
         
                             case "postpledge":
                                 echo json_encode($post->createPledge($body));
-                                break;
-        
-                            case "updatecampaign":
-                                echo json_encode($patch->patchCampaign($body, $request[1]));
                                 break;
         
                             default:
@@ -119,16 +114,24 @@ switch ($_SERVER['REQUEST_METHOD']) {
                     echo json_encode($patch->patchCampaign($body, $request[1]));
                     break;
 
-                case "archivecampaign":
-                    echo json_encode($patch->archiveCampaign($request[1]));
+                case "removecampaign":
+                    echo json_encode($patch->requestRemoveCampaign($request[1]));
+                    break;
+
+                case "approveremovecampaign":
+                    echo json_encode($patch->approveRemoveCampaign($request[1]));
                     break;
 
                 case "refund":
                     echo json_encode($patch->requestRefund($body));
                     break;
 
-                case "validate":
-                    echo json_encode($patch->approveRefund($body));
+                case "valrefund":
+                    echo json_encode($patch->validateRefund($body));
+                    break;
+
+                case "valpayment":
+                    echo json_encode($patch->validatePayment($body));
                     break;
 
                 default:

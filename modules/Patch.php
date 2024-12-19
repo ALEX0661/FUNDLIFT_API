@@ -11,17 +11,12 @@ class Patch extends Common {
 
     public function patchCampaign($body, $id) {
         try {
-            if ($this->getUserDetails()['role'] === 'user') {
-                return $this->generateResponse(
-                    null,
-                    "failed",
-                    "You are not authorized to update campaigns.",
-                    403
-                );
-            }
+            $userDetails = $this->getUserDetails();
+            $userId = $userDetails['user_id'];
+            $userRole = $userDetails['role'];
     
             $campaign = $this->executeQuery(
-                "SELECT status FROM campaigns_tbl WHERE id = ?",
+                "SELECT user_id, status FROM campaigns_tbl WHERE id = ?",
                 [$id]
             );
     
@@ -34,9 +29,19 @@ class Patch extends Common {
                 );
             }
     
-            $currentStatus = $campaign['data'][0]['status'];
+            $campaignData = $campaign['data'][0];
+            $campaignOwnerId = $campaignData['user_id'];
+            $currentStatus = $campaignData['status'];
     
-            // Allow updates only if the campaign is not archived
+            if ($userRole !== 'admin' && $campaignOwnerId !== $userId) {
+                return $this->generateResponse(
+                    null,
+                    "failed",
+                    "Unauthorized access. Only admins and the campaign owner can update this campaign.",
+                    403
+                );
+            }
+    
             if ($currentStatus === 'archived') {
                 return $this->generateResponse(
                     null,
@@ -63,11 +68,10 @@ class Patch extends Common {
             $stmt = $this->pdo->prepare($sql);
             $values = array_values($body);
             $values[] = $id;
-    
             $stmt->execute($values);
     
             $updatedCampaign = $this->getDataByTable('campaigns_tbl', $id, $this->pdo);
-    
+
             $this->logger(
                 null,
                 null,
@@ -88,33 +92,68 @@ class Patch extends Common {
         }
     }
     
+    
 
     public function requestRemoveCampaign($id) {
         try {
-            if ($this->getUserDetails()['role'] === 'user') {
-                return $this->generateResponse(
-                    null,
-                    "failed",
-                    "You are not authorized to remove campaigns.",
-                    403
-                );
-            }
+            $userDetails = $this->getUserDetails();
+            $userId = $userDetails['user_id'];
+            $userRole = $userDetails['role'];
+    
+            // Fetch campaign details
             $stmt = $this->executeQuery(
-                "SELECT status FROM campaigns_tbl WHERE id = ?",
+                "SELECT user_id, status FROM campaigns_tbl WHERE id = ?",
                 [$id]
             );
     
             if ($stmt['code'] !== 200 || empty($stmt['data'])) {
-                return $this->generateResponse(null, "failed", "Campaign with ID: $id not found.", 404);
+                return $this->generateResponse(
+                    null,
+                    "failed",
+                    "Campaign with ID: $id not found.",
+                    404
+                );
             }
     
-            $status = $stmt['data'][0]['status'];
+            $campaignData = $stmt['data'][0];
+            $campaignOwnerId = $campaignData['user_id'];
+            $status = $campaignData['status'];
+    
+            if ($userRole !== 'admin' && $campaignOwnerId !== $userId) {
+                return $this->generateResponse(
+                    null,
+                    "failed",
+                    "Unauthorized access. Only admins and the campaign owner can request campaign removal.",
+                    403
+                );
+            }
+
+            
+            if ($status === 'archived') {
+                return $this->generateResponse(
+                    null,
+                    "failed",
+                    "Campaign with ID: $id is already archived and cannot be removed.",
+                    400
+                );
+            }
+    
             if ($status === 'completed') {
-                return $this->generateResponse(null, "failed", "Campaign with ID: $id is already completed.", 400);
+                return $this->generateResponse(
+                    null,
+                    "failed",
+                    "Campaign with ID: $id is already completed and cannot be removed.",
+                    400
+                );
             }
     
             if ($status === 'pending_removal') {
-                return $this->generateResponse(null, "failed", "Campaign with ID: $id already has a pending removal request.", 400);
+                return $this->generateResponse(
+                    null,
+                    "failed",
+                    "Campaign with ID: $id already has a pending removal request.",
+                    400
+                );
             }
     
             $this->pdo->beginTransaction();
@@ -124,14 +163,27 @@ class Patch extends Common {
             );
             $this->pdo->commit();
     
-            $this->logger(null, null, null, "PATCH", "Campaign removal request created for campaign ID: $id.");
-            return $this->generateResponse(null, "success", "Campaign removal request successfully created for campaign ID: $id.", 200);
+            $this->logger(
+                null,
+                null,
+                null,
+                "PATCH",
+                "Campaign removal request created for campaign ID: $id."
+            );
+    
+            return $this->generateResponse(
+                null,
+                "success",
+                "Campaign removal request successfully created for campaign ID: $id.",
+                200
+            );
         } catch (\PDOException $e) {
             $this->pdo->rollBack();
             $this->logger(null, null, null, "PATCH", $e->getMessage());
             return $this->generateResponse(null, "failed", $e->getMessage(), 400);
         }
     }
+    
 
     public function approveRemoveCampaign($id) {
         try {
@@ -258,7 +310,7 @@ class Patch extends Common {
             $pledgeId = $body['pledge_id'];
             $action = $body['action'];
     
-            $pledge = $this->executeQuery("SELECT amount, campaign_id, payment_status FROM Pledges_tbl WHERE id = ?", [$pledgeId]);
+            $pledge = $this->executeQuery("SELECT user_id, amount, campaign_id, payment_status FROM Pledges_tbl WHERE id = ?", [$pledgeId]);
             $amount = $pledge['data'][0]??null;
     
             if (empty($pledge['data'])) {
@@ -275,8 +327,8 @@ class Patch extends Common {
                 $result = $this->executeQuery("SELECT id, title, amount_raised, goal_amount FROM campaigns_tbl WHERE id = ?", [$pledge['data'][0]['campaign_id']]);
                 $data = $result['data'][0]??null;
 
-                $this->logger(null, null, null, "POST", "Pledge of '{$amount['amount']}' added to campaign ID '{$data['id']}'. Updated amount raised: '{$data['amount_raised']}' out of the goal amount '{$data['goal_amount']}'.");            
-                return $this->generateResponse($result['data'], "success",  "Pledge of '{$amount['amount']}' successfully added to campaign ID '{$data['id']}'. The total amount raised is now '{$data['amount_raised']}' out of the goal amount '{$data['goal_amount']}'.", 200);
+                $this->logger(null, null, null, "POST", "Admin approve Pledge of '{$amount['amount']}' added to campaign ID '{$data['id']}' by user id: '{$amount['user_id']}'. Updated amount raised: '{$data['amount_raised']}' out of the goal amount '{$data['goal_amount']}'.");            
+                return $this->generateResponse($result['data'], "success",  "Pledge of '{$amount['amount']}' successfully added to campaign ID '{$data['id']}' by user id: '{$amount['user_id']}'. The total amount raised is now '{$data['amount_raised']}' out of the goal amount '{$data['goal_amount']}'.", 200);
             } elseif ($action === 'deny' && $pledge['data'][0]['payment_status'] === 'pending') {
                 
                 $this->executeQuery("UPDATE Pledges_tbl SET payment_status = 'unsuccessful' WHERE id = ?", [$pledgeId]);

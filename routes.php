@@ -33,34 +33,93 @@ switch ($_SERVER['REQUEST_METHOD']) {
     case "GET":
         if ($auth->isAuthorized()) {
             switch ($request[0]) {
-
                 case "campaigns":
-                    $dataString = json_encode($get->getCampaigns($request[1] ?? null));
+                    if (isset($request[1])) {
+                        // Get campaigns by ID, status, or owned campaigns
+                        if ($request[1] === "owned") {
+                            $dataString = json_encode($get->getOwnedCampaigns());
+                        } elseif ($request[1] === "status" && isset($request[2])) {
+                            $dataString = json_encode($get->getCampaigns(null, $request[2]));
+                        } else {
+                            $dataString = json_encode($get->getCampaigns($request[1]));
+                        }
+                    } else {
+                        // Get all campaigns
+                        $dataString = json_encode($get->getCampaigns());
+                    }
                     echo $dataString;
-                    //echo $crypt->encryptData($dataString);
                     break;
-
+    
                 case "pledges":
-                    $dataString = json_encode($get->getPledges($request[1] ?? null));
+                    if (isset($request[1])) {
+                        if ($request[1] === "mine") {
+                            // Get user's own pledges
+                            $dataString = json_encode($get->getOwnPledges());
+                        } elseif ($request[1] === "status" && isset($request[2])) {
+                            // Get pledges by status
+                            $dataString = json_encode($get->getPledges(null, $request[2]));
+                        } elseif ($request[1] === "refund_status" && isset($request[2])) {
+                            // Get pledges by refund status
+                            $dataString = json_encode($get->getPledges(null, null, $request[2]));
+                        } elseif ($request[1] === "by_campaign" && isset($request[2])) {
+                            // Get pledges by campaign ID
+                            $dataString = json_encode($get->getPledges($request[2]));
+                        } elseif ($request[1] === "by_user" && isset($request[2])) {
+                            // Admin: Get pledges by user ID
+                            if ($auth->getUserDetails()['role'] === 'admin') {
+                                $dataString = json_encode($get->getPledgesByUserId($request[2]));
+                            } else {
+                                http_response_code(403);
+                                echo json_encode(["status" => "failed", "message" => "Unauthorized access."]);
+                                exit;
+                            }
+                        } else {
+                            http_response_code(400);
+                            echo json_encode(["status" => "failed", "message" => "Invalid pledges endpoint."]);
+                            exit;
+                        }
+                    } else {
+                        // Get all pledges
+                        $dataString = json_encode($get->getPledges());
+                    }
                     echo $dataString;
-                    //echo $crypt->encryptData($dataString);
                     break;
-
+    
+                case "refund_requests":
+                    if ($auth->getUserDetails()['role'] === 'admin') {
+                        $dataString = json_encode($get->getRefundRequests());
+                        echo $dataString;
+                    } else {
+                        http_response_code(403);
+                        echo json_encode(["status" => "failed", "message" => "Unauthorized access."]);
+                    }
+                    break;
+    
+                case "payment_requests":
+                    if ($auth->getUserDetails()['role'] === 'admin') {
+                        $dataString = json_encode($get->getPaymentRequests());
+                        echo $dataString;
+                    } else {
+                        http_response_code(403);
+                        echo json_encode(["status" => "failed", "message" => "Unauthorized access."]);
+                    }
+                    break;
+    
                 case "logs":
                     echo json_encode($get->getLogs($request[1] ?? date("Y-m-d")));
-                break;
-
-                default:
-                    http_response_code(401);
-                    echo "Invalid endpoint.";
                     break;
-
+    
+                default:
+                    http_response_code(400);
+                    echo json_encode(["status" => "failed", "message" => "Invalid endpoint."]);
+                    break;
             }
         } else {
             http_response_code(401);
-            echo "Unauthorized access.";
+            echo json_encode(["status" => "failed", "message" => "Unauthorized access."]);
         }
         break;
+    
 
     case "POST":
         case "POST":

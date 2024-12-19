@@ -21,3 +21,18 @@
 2024-12-19 01:06:36, PATCH, zhanghao, 29, admin, Admin denied payment request for pledge ID '57'.
 2024-12-19 01:11:17, POST, zhanghao, 29, admin, User requested a refund for pledge ID '53' with reason: 'give me my money'
 2024-12-19 01:12:58, PATCH, zhanghao, 29, admin, Admin approved refund for pledge ID '53'. Amount refunded: '10.00'.
+2024-12-19 09:58:30, POST, jungwoo, 30, user, Created a new pledge worth '100.00' for the campaign with ID: '11'. Payment status is set to 'pending'.
+2024-12-19 10:00:45, POST, zhanghao, 29, admin, Admin approve Pledge of '100.00' added to campaign ID '11' by user id: '58'. Updated amount raised: '1700.00' out of the goal amount '1000.00'.
+2024-12-19 10:05:19, POST, xel, 25, campaign_owner, Created a new pledge worth '200.00' for the campaign with ID: '10'. Payment status is set to 'pending'.
+2024-12-19 10:05:40, POST, zhanghao, 29, admin, Admin approve Pledge of '200.00' added to campaign ID '10' by user id: ''. Updated amount raised: '200.00' out of the goal amount '100000.00'.
+2024-12-19 10:10:36, POST, xel, 25, campaign_owner, Created a new pledge worth '200.00' for the campaign with ID: '10'. Payment status is set to 'pending'.
+2024-12-19 10:10:48, POST, zhanghao, 29, admin, Admin approve Pledge of '200.00' added to campaign ID '10' by user id: '25'. Updated amount raised: '400.00' out of the goal amount '100000.00'.
+2024-12-19 10:14:14, PATCH, zhanghao, 29, admin, Updated campaign record with ID: 15. Changes: {"title":"Save met","description":"need money","goal_amount":"1000.00","amount_raised":"1600.00","start_date":"2024-11-01","end_date":"2025-01-01","updated_at":"2024-12-07 10:29:42"}
+2024-12-19 10:14:55, PATCH, zhanghao, 29, admin, Updated campaign record with ID: 17. Changes: {"title":"Save met","description":"need money","goal_amount":"1000.00","amount_raised":"1600.00","start_date":"2024-11-01","end_date":"2025-01-01","updated_at":"2024-12-07 10:29:42"}
+2024-12-19 10:29:28, PATCH, xel, 25, campaign_owner, Updated campaign record with ID: 16. Changes: {"title":"Save met","description":"need money","goal_amount":"1000.00","amount_raised":"1600.00","start_date":"2024-11-01","end_date":"2025-01-01","updated_at":"2024-12-07 10:29:42"}
+2024-12-19 10:31:47, PATCH, xel, 25, campaign_owner, Updated campaign record with ID: 16. Changes: {"status":"completed"}
+2024-12-19 10:41:18, PATCH, zhanghao, 29, admin, Campaign removal request created for campaign ID: 13.
+2024-12-19 10:44:35, PATCH, zhanghao, 29, admin, Campaign removal request created for campaign ID: 7.
+2024-12-19 10:45:49, PATCH, xel, 25, campaign_owner, Campaign removal request created for campaign ID: 15.
+2024-12-19 10:46:49, PATCH, zhanghao, 29, admin, Approved campaign removal for campaign ID: 15.
+2024-12-19 10:46:56, PATCH, zhanghao, 29, admin, Approved campaign removal for campaign ID: 7.
